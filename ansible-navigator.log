@@ -1,0 +1,55 @@
+2026-08-04T01:30:37.985969+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-04T01:30:37.986093+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-04T01:30:37.986114+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8:latest: image not known
+
+2026-08-04T01:30:39.730168+00:00 ERROR 'ansible_navigator.image_manager.puller._log_message' Execution environment pull failed
+2026-08-04T01:31:06.507188+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-04T01:31:06.507282+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-04T01:31:06.507299+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8:latest: image not known
+
+2026-08-04T01:31:08.078174+00:00 ERROR 'ansible_navigator.image_manager.puller._log_message' Execution environment pull failed
+2026-08-04T01:32:58.475570+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-04T01:32:58.475679+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-04T01:32:58.475697+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8:latest: image not known
+
+2026-08-04T01:33:00.216469+00:00 ERROR 'ansible_navigator.image_manager.puller._log_message' Execution environment pull failed
+2026-08-04T01:48:33.196484+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-04T01:48:33.196796+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-04T01:48:33.196819+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8:latest: image not known
+
+2026-08-04T01:48:34.777720+00:00 ERROR 'ansible_navigator.image_manager.puller._log_message' Execution environment pull failed
+2026-08-04T01:50:26.632030+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-04T01:50:26.632136+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-04T01:50:26.632156+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8:latest: image not known
+
+2026-08-04T01:50:28.270691+00:00 ERROR 'ansible_navigator.image_manager.puller._log_message' Execution environment pull failed
+2026-08-04T01:51:58.426076+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-04T01:51:58.426204+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-04T01:51:58.426226+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8:latest: image not known
+
+2026-08-04T01:56:46.649596+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `TZ=false` not currently set, discarded
+2026-08-04T01:56:48.162403+00:00 ERROR 'ansible_navigator.actions.config._run_runner' Error occurred while fetching ansible config (list): '/usr/lib64/python3.12/site-packages/cryptography/hazmat/backends/openssl/backend.py:8: CryptographyDeprecationWarning: You are using OpenSSL < 3.0. Support for OpenSSL < 3.0 is deprecated and will be removed in the next release. Please upgrade to OpenSSL 3.0 or later.
+  from cryptography.hazmat.bindings.openssl import binding
+'
+2026-08-04T01:56:48.162447+00:00 ERROR 'ansible_navigator.actions.config._run_runner' Error occurred while fetching ansible config (dump): '/usr/lib64/python3.12/site-packages/cryptography/hazmat/backends/openssl/backend.py:8: CryptographyDeprecationWarning: You are using OpenSSL < 3.0. Support for OpenSSL < 3.0 is deprecated and will be removed in the next release. Please upgrade to OpenSSL 3.0 or later.
+  from cryptography.hazmat.bindings.openssl import binding
+'
+2026-08-04T02:28:27.671191+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-04T02:28:27.671451+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-04T02:28:27.671475+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: ghcr.io/ansible/community-ansible-dev-tools:latest: image not known
+
+2026-08-04T02:30:12.529424+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': '521f1609-c270-4eef-bbc6-845a3a681fdb', 'counter': 1, 'stdout': '/usr/lib64/python3.12/site-packages/cryptography/hazmat/backends/openssl/backend.py:8: CryptographyDeprecationWarning: You are using OpenSSL < 3.0. Support for OpenSSL < 3.0 is deprecated and will be removed in the next release. Please upgrade to OpenSSL 3.0 or later.', 'start_line': 0, 'end_line': 1, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.521057+00:00'}
+2026-08-04T02:30:12.529729+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': '10e0328f-234b-45ad-a0bd-20324ac7ecf2', 'counter': 2, 'stdout': '  from cryptography.hazmat.bindings.openssl import binding', 'start_line': 1, 'end_line': 2, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.521181+00:00'}
+2026-08-04T02:30:12.570189+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': 'c26dc157-bae7-4a53-8c4d-a1a36b7ebece', 'counter': 3, 'stdout': '/usr/local/lib/python3.12/site-packages/paramiko/pkey.py:100: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.', 'start_line': 2, 'end_line': 3, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.561064+00:00'}
+2026-08-04T02:30:12.570651+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': '5fab65cc-055c-42ed-8a26-d83616bbc468', 'counter': 4, 'stdout': '  "cipher": algorithms.TripleDES,', 'start_line': 3, 'end_line': 4, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.561111+00:00'}
+2026-08-04T02:30:12.570706+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': '933adee1-b909-47f1-9c4c-9fb5a9c83ef0', 'counter': 5, 'stdout': '/usr/local/lib/python3.12/site-packages/paramiko/transport.py:259: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.', 'start_line': 4, 'end_line': 5, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.569300+00:00'}
+2026-08-04T02:30:12.570727+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': '3bc17921-b652-491b-afa7-ffa2f47f6862', 'counter': 6, 'stdout': '  "class": algorithms.TripleDES,', 'start_line': 5, 'end_line': 6, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.569355+00:00'}
+2026-08-04T02:30:12.622390+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': '36e51c90-29f4-4ea1-8853-79fe4165d7eb', 'counter': 7, 'stdout': '\x1b[1;35m[WARNING]: provided hosts list is empty, only localhost is available. Note that\x1b[0m', 'start_line': 6, 'end_line': 7, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.615385+00:00'}
+2026-08-04T02:30:12.622443+00:00 CRITICAL 'ansible_navigator.actions.run_playbook._handle_message' Unhandled message from runner queue, discarded: {'event': 'verbose', 'uuid': '4b4a8a63-dd70-452a-bb67-3b12778c0acc', 'counter': 8, 'stdout': "\x1b[1;35mthe implicit localhost does not match 'all'\x1b[0m", 'start_line': 7, 'end_line': 8, 'runner_ident': '104b88f3-4c0e-42c1-86a2-c98abb4394a3', 'created': '2026-08-04T02:30:12.615440+00:00'}
