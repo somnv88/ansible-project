@@ -1,0 +1,10 @@
+---
+- name: Download CNI manifest
+  ansible.builtin.get_url:
+    url: "{{ cni_manifest_url }}"
+    dest: /tmp/cni-manifest.yaml
+    mode: '0644'
+
+- name: Apply CNI manifest
+  ansible.builtin.command: kubectl --kubeconfig={{ kubeconfig_path }} apply -f /tmp/cni-manifest.yaml
+  changed_when: true

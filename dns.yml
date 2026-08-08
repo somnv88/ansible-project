@@ -1,0 +1,20 @@
+---
+- name: setup dns server
+  host: server
+  tasks:
+    - name: install bind and bind-utils
+      ansible.builtin.yum:
+        name: "{{ item }}" 
+        state: present
+      loop:
+        - bind
+        - bind-utils
+    - name: configure named.conf
+      ansible.builtin.template:
+        src: named.conf.j2
+        dest: /etc/named.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - restart named

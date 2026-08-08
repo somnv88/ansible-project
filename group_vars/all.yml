@@ -1,0 +1,10 @@
+kubernetes_version: v1.36
+crio_version: v1.36
+pod_network_cidr: 192.168.0.0/16
+kubernetes_repo_baseurl: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_version }}/rpm/"
+kubernetes_repo_gpgkey: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_version }}/rpm/repodata/repomd.xml.key"
+crio_repo_baseurl: "https://download.opensuse.org/repositories/isv:/cri-o:/stable:/{{ crio_version }}/rpm/"
+crio_repo_gpgkey: "https://download.opensuse.org/repositories/isv:/cri-o:/stable:/{{ crio_version }}/rpm/repodata/repomd.xml.key"
+cri_socket: unix:///var/run/crio/crio.sock
+cni_manifest_url: "https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/calico.yaml"
+kubeconfig_path: /etc/kubernetes/admin.conf

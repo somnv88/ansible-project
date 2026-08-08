@@ -1,1 +1,12 @@
-10.1.69.110
+[control_plane]
+172.16.185.128
+
+[workers]
+172.16.185.135
+172.16.185.136
+
+[k8s:children]
+control_plane
+workers
+
+

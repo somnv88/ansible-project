@@ -1,8 +1,8 @@
 ---
 - name: Configure web server
-  hosts: setup webserver
+  hosts: webservers
   become: true
-  tasks:
+  tasks:  
     - name: install httpd
       ansible.builtin.dnf:
         name: httpd
@@ -11,12 +11,17 @@
       ansible.builtin.copy:
         src: index.html
         dest: /var/www/html/index.html
-        permissions: '0644'
+        mode: '0644'
     - name: start httpd
       ansible.builtin.service:
         name: httpd
         state: started
         enabled: true 
+    - name: start firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
     - name: open firewall port
       ansible.posix.firewalld:
         service: http

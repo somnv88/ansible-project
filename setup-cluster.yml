@@ -1,0 +1,22 @@
+---
+- name: Prepare all Kubernetes nodes
+  hosts: k8s
+  become: true
+  gather_facts: false
+  roles:
+    - common
+    - crio
+    - kubeadm
+
+- name: Initialize control plane
+  hosts: control_plane
+  become: true
+  roles:
+    - kubeadm_control_plane
+    - cni
+
+- name: Join worker nodes
+  hosts: workers
+  become: true
+  roles:
+    - kubeadm_worker

@@ -1,0 +1,23 @@
+---
+- name: Add Kubernetes repository
+  ansible.builtin.yum_repository:
+    name: kubernetes
+    description: Kubernetes Repository
+    baseurl: "{{ kubernetes_repo_baseurl }}"
+    gpgcheck: true
+    gpgkey: "{{ kubernetes_repo_gpgkey }}"
+    enabled: true
+
+- name: Install Kubernetes tools
+  ansible.builtin.dnf:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+
+- name: Enable kubelet service
+  ansible.builtin.systemd:
+    name: kubelet
+    enabled: true
+    state: started
