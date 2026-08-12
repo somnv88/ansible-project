@@ -1,0 +1,10 @@
+---
+- name: Test AWX execution
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Hello
+      ansible.builtin.debug:
+        msg: "Hello from AWX"
