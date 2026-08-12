@@ -1,0 +1,8 @@
+---
+- name: Observe Ansible module transfer
+  hosts: workers
+  gather_facts: false
+
+  tasks:
+    - name: Sleep for observation
+      ansible.builtin.shell: "sleep 60"

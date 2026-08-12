@@ -1,30 +1,9 @@
 ---
 - name: Configure web server
-  hosts: webservers
+  hosts: workers
   become: true
   tasks:  
-    - name: install httpd
-      ansible.builtin.dnf:
-        name: httpd
-        state: present
-    - name: correct index file
-      ansible.builtin.copy:
-        src: index.html
-        dest: /var/www/html/index.html
-        mode: '0644'
-    - name: start httpd
-      ansible.builtin.service:
-        name: httpd
-        state: started
-        enabled: true 
-    - name: start firewalld
-      ansible.builtin.service:
-        name: firewalld
-        state: started
-        enabled: true
-    - name: open firewall port
-      ansible.posix.firewalld:
-        service: http
-        permanent: true
-        state: enabled
-        immediate: true
+  - name: Test
+    ansible.builtin.ping:
+    
+  
