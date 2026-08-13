@@ -1,0 +1,19 @@
+vrrp_script chk_haproxy {
+  script "killall -0 haproxy"  # check the haproxy process
+  interval {{ keepalived_check_interval | default(2) }}  # every 2 seconds
+  weight {{ keepalived_check_weight | default(2) }}  # add points if OK
+}
+
+vrrp_instance VI_1 {
+  interface {{ keepalived_interface | default('eth0') }}  # interface to monitor
+  state {{ keepalived_state | default('MASTER') }}  # MASTER on primary, BACKUP on secondary
+  virtual_router_id {{ keepalived_virtual_router_id | default(51) }}
+  priority {{ keepalived_priority | default(101) }}  # higher priority wins
+  advert_int {{ keepalived_advert_int | default(1) }}
+  virtual_ipaddress {
+    {{ keepalived_virtual_ip | default('192.168.0.100') }}  # virtual IP address
+  }
+  track_script {
+    chk_haproxy
+  }
+}
