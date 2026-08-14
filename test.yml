@@ -1,17 +1,34 @@
 ---
-- name: Test Community VMware EE - About Info
+- name: Test VMware EE - Get VM Resource Info
   hosts: localhost
   gather_facts: false
+  vars:
+    vcenter_hostname: "vcenter.amigo.lab"       # Hoặc IP nếu chưa cấu hình DNS
+    vcenter_username: "administrator@vsphere.local"
+    vcenter_password: "YourPasswordHere"
+    validate_certs: false
+
+    # Chọn 1 trong 2 cách định danh VM bên dưới:
+    vm_target_name: "Tên_VM_Của_Bạn"          # Cách 1: Dùng tên hiển thị trên UI
+    # vm_target_moid: "vm-1025"               # Cách 2: Dùng MoRef ID (moid)
 
   tasks:
-  - name: Lay thong tin Appliance tu vCenter (vmware.vmware)
-    vmware.vmware.appliance_info:
-      hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
-      validate_certs: "{{ validate_certs }}"
-    register: vcenter_appliance_info
+    - name: Thu thap thong tin tai nguyen cua VM theo ten
+      vmware.vmware.vm_resource_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ validate_certs }}"
+        name: "{{ vm_target_name }}"
+        name_match: first
+        # Neu muon dung moid thi thay 'name' bang:
+        # moid: "{{ vm_target_moid }}"
+        gather_cpu_config: true
+        gather_cpu_stats: true
+        gather_memory_config: true
+        gather_memory_stats: true
+      register: vm_resource_output
 
-  - name: Hien thi ket qua
-    ansible.builtin.debug:
-      var: vcenter_appliance_info
+    - name: In toan bo thong tin tai nguyen VM
+      ansible.builtin.debug:
+        var: vm_resource_output
