@@ -1,6 +1,6 @@
 ---
-- name: Observe Ansible module transfer
-  hosts: workers
+- name: Test Community VMware EE - About Info
+  hosts: localhost
   gather_facts: false
 
   tasks:
