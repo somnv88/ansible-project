@@ -1,34 +1,28 @@
 ---
-- name: Test VMware EE - Get VM Resource Info
+- name: Test tao VM tren vCenter
   hosts: localhost
   gather_facts: false
-  vars:
-    vcenter_hostname: "vcenter.amigo.lab"       # Hoặc IP nếu chưa cấu hình DNS
-    vcenter_username: "administrator@vsphere.local"
-    vcenter_password: "YourPasswordHere"
-    validate_certs: false
-
-    # Chọn 1 trong 2 cách định danh VM bên dưới:
-    vm_target_name: "Tên_VM_Của_Bạn"          # Cách 1: Dùng tên hiển thị trên UI
-    # vm_target_moid: "vm-1025"               # Cách 2: Dùng MoRef ID (moid)
 
   tasks:
-    - name: Thu thap thong tin tai nguyen cua VM theo ten
-      vmware.vmware.vm_resource_info:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
-        validate_certs: "{{ validate_certs }}"
-        name: "{{ vm_target_name }}"
-        name_match: first
-        # Neu muon dung moid thi thay 'name' bang:
-        # moid: "{{ vm_target_moid }}"
-        gather_cpu_config: true
-        gather_cpu_stats: true
-        gather_memory_config: true
-        gather_memory_stats: true
-      register: vm_resource_output
-
-    - name: In toan bo thong tin tai nguyen VM
-      ansible.builtin.debug:
-        var: vm_resource_output
+    - name: Tao may ao test
+      community.vmware.vmware_guest:
+        # vCenter info được nạp tự động từ AAP Credential hoặc Extra Vars
+        validate_certs: false
+        datacenter: "{{ datacenter_name }}"
+        cluster: "{{ cluster_name }}"
+        resource_pool: "{{ resource_pool_name }}"
+        name: "{{ vm_name | default('test-vm-default') }}"
+        state: poweredon
+        guest_id: rhel8_64Guest
+        hardware:
+          memory_mb: 2048
+          num_cpus: 2
+          scsi: paravirtual
+        disk:
+          - size_gb: 20
+            type: thin
+            datastore: "{{ datastore_name }}"
+        networks:
+          - name: "{{ network_portgroup }}"
+            type: vmxnet3
+            start_connected: true
