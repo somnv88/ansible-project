@@ -31,11 +31,11 @@
             provisioning: thin
             device_node: "SCSI(0:0)"
 
-        network_adapters:
-          - network: "{{ network_portgroup }}"
-            adapter_type: vmxnet3
-            connected: true
-            connect_at_power_on: true
+        # network_adapters:
+        #   - network: "{{ network_portgroup }}"
+        #     adapter_type: vmxnet3
+        #     connected: true
+        #     connect_at_power_on: true
       register: _new_vm
 
     - name: Bat nguon may ao sau khi tao
