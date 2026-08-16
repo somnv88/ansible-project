@@ -32,7 +32,7 @@
             device_node: "SCSI(0:0)"
 
         network_adapters:
-          - network: "{{ vm_network }}"
+          - network: "{{ network_portgroup }}"
             adapter_type: vmxnet3
             connected: true
             connect_at_power_on: true
@@ -41,6 +41,6 @@
     - name: Bat nguon may ao sau khi tao
       vmware.vmware.vm_powerstate:
         validate_certs: false
-        datacenter: "{{ vm_datacenter }}"
+        datacenter: "{{ datacenter_name }}"
         moid: "{{ _new_vm.vm.moid }}"
         state: powered-on
