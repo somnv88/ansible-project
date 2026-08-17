@@ -24,6 +24,7 @@
       - adapter_type: "{{ adapter_type | default('vmxnet3') }}"
         network: "{{ network_name | default('192.168.50.0') }}"
         connect_at_power_on: true
+        type: standard 
     disks:
       - size: "{{ disk_size | default('20gb') }}"
         provisioning: thin
