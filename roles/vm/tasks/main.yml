@@ -1,0 +1,36 @@
+---
+- name: Khoi tao cau hinh may ao co ban
+  vmware.vmware.vm:
+    validate_certs: false
+
+    datacenter: "{{ datacenter_name }}"
+    cluster: "{{ cluster_name }}"
+    resource_pool: "{{ resource_pool }}"
+    datastore: "{{ datastore_name }}"
+
+    name: "{{ vm_name | default('test-vmware-module-01') }}"
+    guest_id: "{{ guest_id | default('rhel8_64Guest') }}"
+
+    cpu:
+      cores: "{{ cpu_cores | default(2) }}"
+      cores_per_socket: "{{ cpu_cores_per_socket | default(1) }}"
+    memory:
+      size_mb: "{{ memory_size_mb | default(2048) }}"
+
+    scsi_controllers:
+      - controller_type: paravirtual
+        bus_number: 0
+
+    disks:
+      - size: "{{ disk_size | default('20gb') }}"
+        provisioning: thin
+        device_node: "SCSI(0:0)"
+
+  register: _new_vm
+
+- name: Bat nguon may ao sau khi tao
+  vmware.vmware.vm_powerstate:
+    validate_certs: false
+    datacenter: "{{ datacenter_name }}"
+    moid: "{{ _new_vm.vm.moid }}"
+    state: powered-on

@@ -2,45 +2,16 @@
 - name: Test tao VM su dung vmware.vmware.vm
   hosts: localhost
   gather_facts: false
-  tasks:
-    - name: Khoi tao cau hinh may ao co ban
-      vmware.vmware.vm:
-        validate_certs: false
-
-        # Dinh vi VM tren vCenter
-        datacenter: "{{ datacenter_name }}"
-        cluster: "{{ cluster_name }}"
-        resource_pool: "{{ resource_pool }}"
-        datastore: "{{ datastore_name }}"
-
-        name: "test-vmware-module-01"
+  roles:
+    - role: vm
+      vars:
+        vm_name: "test-vmware-module-01"
         guest_id: "rhel8_64Guest"
-
-        cpu:
-          cores: 2
-          cores_per_socket: 1
-        memory:
-          size_mb: 2048
-
-        scsi_controllers:
-          - controller_type: paravirtual
-            bus_number: 0
-
-        disks:
-          - size: 20gb
-            provisioning: thin
-            device_node: "SCSI(0:0)"
-
-        # network_adapters:
-        #   - network: "{{ network_portgroup }}"
-        #     adapter_type: vmxnet3
-        #     connected: true
-        #     connect_at_power_on: true
-      register: _new_vm
-
-    - name: Bat nguon may ao sau khi tao
-      vmware.vmware.vm_powerstate:
-        validate_certs: false
-        datacenter: "{{ datacenter_name }}"
-        moid: "{{ _new_vm.vm.moid }}"
-        state: powered-on
+        cpu_cores: 2
+        cpu_cores_per_socket: 1
+        memory_size_mb: 2048
+        disk_size: "20gb"
+        datacenter_name: "{{ datacenter_name }}"
+        cluster_name: "{{ cluster_name }}"
+        resource_pool: "{{ resource_pool }}"
+        datastore_name: "{{ datastore_name }}"

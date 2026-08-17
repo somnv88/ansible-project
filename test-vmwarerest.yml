@@ -1,0 +1,39 @@
+- name: Create a VM
+  hosts: localhost
+  gather_facts: false
+  vars:
+      vm_cluster_id: "domain-c1001"
+      vm_datastore_id: "datastore-1002"
+      vm_resource_pool_id: "resgroup-1004"
+  tasks:
+  - name: Create a VM using vmware.vmware_rest.vcenter_vm
+    vmware.vmware_rest.vcenter_vm:
+      placement:
+        cluster: "{{ vm_cluster_id }}"
+        datastore: "{{ vm_datastore_id }}"
+        resource_pool: "{{ vm_resource_pool_id }}"
+      name: test_vm1
+      guest_OS: RHEL_9_64
+      hardware_version: VMX_11
+      memory:
+        hot_add_enabled: true
+        size_MiB: 1024
+      disks:
+      - type: SATA
+        backing:
+          type: VMDK_FILE
+          vmdk_file: '[local] test_vm1/{{ disk_name }}.vmdk'
+      - type: SATA
+        new_vmdk:
+          name: second_disk
+          capacity: 32000000000
+      cdroms:
+      - type: SATA
+        sata:
+          bus: 0
+          unit: 2
+      nics:
+      - backing:
+          type: STANDARD_PORTGROUP
+          network: "{{ lookup('vmware.vmware_rest.network_moid', '/my_dc/network/VM Network') }}"
+    register: my_vm
