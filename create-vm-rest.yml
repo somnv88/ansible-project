@@ -21,6 +21,10 @@
       name: test_vm1
       guest_OS: RHEL_8_64
       hardware_version: VMX_11
+      cpu:
+        hot_add_enabled: true
+        count: 2
+        cores_per_socket: 1
       memory:
         hot_add_enabled: true
         size_MiB: 1024
