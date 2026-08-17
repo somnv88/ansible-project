@@ -21,6 +21,11 @@
       name: test_vm1
       guest_OS: RHEL_8_64
       hardware_version: VMX_11
+      boot:
+        type: BIOS
+        delay: 0
+        retry: false
+        retry_delay: 10000
       cpu:
         hot_add_enabled: true
         count: 2
