@@ -6,6 +6,8 @@
     vm_cluster_id: "domain-c1198154"
     vm_datastore_id: "datastore-1198166"
     vm_resource_pool_id: "resgroup-1201139"
+    vm_folder_id: "group-v1159426"
+    # Example: vm_folder_id: "{{ lookup('vmware.vmware_rest.folder_moid', '/my_dc/vm') }}"
     #vm_source_id: "vm-1209383"
     vm_network_id: "dvportgroup-1201111"
   tasks:
@@ -14,7 +16,7 @@
       placement:
         cluster: "{{ vm_cluster_id }}"
         datastore: "{{ vm_datastore_id }}"
-        #folder: "{{ lookup('vmware.vmware_rest.folder_moid', '/my_dc/vm') }}"
+        folder: "{{ vm_folder_id }}"
         resource_pool: "{{ vm_resource_pool_id }}"
       name: test_vm1
       guest_OS: RHEL_8_64
