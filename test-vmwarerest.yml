@@ -1,18 +1,61 @@
-- name: Create a VM
+---
+- name: Preflight vCenter privilege check before clone
   hosts: localhost
   gather_facts: false
   vars:
-      vm_cluster_id: "domain-c1001"
-      vm_datastore_id: "datastore-1002"
-      vm_resource_pool_id: "resgroup-1004"
+    vm_cluster_id: "domain-c1001"
+    vm_datastore_id: "datastore-1002"
+    vm_resource_pool_id: "resgroup-1004"
+    vm_source_id: "vm-1209383"
+
   tasks:
-  - name: Create a clone of a VM
-    vmware.vmware_rest.vcenter_vm:
-      placement:
-        cluster: "{{ vm_cluster_id }}"
-        datastore: "{{ vm_datastore_id }}"
-        resource_pool: "{{ vm_resource_pool_id }}"
-      source: 'vm-1209383'
-      name: test_vm3
-      state: clone
-    register: my_clone_vm
+    - name: Check datastore access
+      vmware.vmware_rest.vcenter_datastore_info:
+        datastores:
+          - "{{ vm_datastore_id }}"
+      register: datastore_check
+      failed_when: false
+
+    - name: Check resource pool access
+      vmware.vmware_rest.vcenter_resource_pool_info:
+        resource_pools:
+          - "{{ vm_resource_pool_id }}"
+      register: resource_pool_check
+      failed_when: false
+
+    - name: Check source VM access
+      vmware.vmware_rest.vcenter_vm_info:
+        vms:
+          - "{{ vm_source_id }}"
+      register: source_vm_check
+      failed_when: false
+
+    - name: Fail early if permission is missing
+      ansible.builtin.assert:
+        that:
+          - datastore_check.value is defined
+          - (datastore_check.value | length) > 0
+          - resource_pool_check.value is defined
+          - (resource_pool_check.value | length) > 0
+          - source_vm_check.value is defined
+          - (source_vm_check.value | length) > 0
+        fail_msg: >
+          vCenter privilege preflight FAILED.
+          User does not have enough privilege to read datastore, resource pool or source VM.
+          Required privileges may include:
+          - Datastore.AllocateSpace
+          - Resource.AssignVMToPool
+          - VirtualMachine.Inventory.Read
+          - VirtualMachine.Config.*
+        success_msg: >
+          vCenter authorization preflight passed.
+
+    - name: Clone VM only after preflight passes
+      vmware.vmware_rest.vcenter_vm:
+        placement:
+          cluster: "{{ vm_cluster_id }}"
+          datastore: "{{ vm_datastore_id }}"
+          resource_pool: "{{ vm_resource_pool_id }}"
+        source: "{{ vm_source_id }}"
+        name: "test_vm3"
+        state: clone
