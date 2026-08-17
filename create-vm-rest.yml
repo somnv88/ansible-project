@@ -1,0 +1,46 @@
+---
+- name: Preflight vCenter privilege check before clone
+  hosts: localhost
+  gather_facts: false
+  vars:
+    vm_cluster_id: "domain-c1198154"
+    vm_datastore_id: "datastore-1198166"
+    vm_resource_pool_id: "resgroup-1201139"
+    #vm_source_id: "vm-1209383"
+    vm_network_id: "dvportgroup-1201111"
+  tasks:
+  - name: Create a VM
+    vmware.vmware_rest.vcenter_vm:
+      placement:
+        cluster: "{{ vm_cluster_id }}"
+        datastore: "{{ vm_datastore_id }}"
+        #folder: "{{ lookup('vmware.vmware_rest.folder_moid', '/my_dc/vm') }}"
+        resource_pool: "{{ vm_resource_pool_id }}"
+      name: test_vm1
+      guest_OS: RHEL_8_64
+      hardware_version: VMX_11
+      memory:
+        hot_add_enabled: true
+        size_MiB: 1024
+      disks:
+      - type: SATA
+        backing:
+          type: VMDK_FILE
+          vmdk_file: '[local] test_vm1/{{ disk_name }}.vmdk'
+      - type: SATA
+        new_vmdk:
+          name: second_disk
+          capacity: 10240
+      cdroms:
+      - type: SATA
+        sata:
+          bus: 0
+          unit: 2
+      nics:
+      - type: VMXNET3
+        start_connected: true
+        allow_guest_control: false
+        backing:
+          type: 'DISTRIBUTED_PORTGROUP'
+          network: "{{ vm_network_id }}"
+    register: my_vm
