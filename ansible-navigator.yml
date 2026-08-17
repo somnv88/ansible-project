@@ -2,10 +2,15 @@ ansible-navigator:
 #  container-engine: podman
   execution-environment:
     enabled: true
-    image: registry.redhat.io/ansible-automation-platform-25/ansible-dev-tools-rhel8:latest
+    image: localhost/my_first_ee_image:latest
     pull:
       policy: missing
-
+    environment-variables:
+      pass:
+        - AZURE_SUBSCRIPTION_ID
+        - AZURE_CLIENT_ID
+        - AZURE_SECRET
+        - AZURE_TENANT
   mode: stdout
   playbook-artifact:
     enable: false

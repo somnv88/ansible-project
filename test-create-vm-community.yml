@@ -4,6 +4,17 @@
   gather_facts: false
 
   tasks:
+    - name: Get distributed switches
+      community.vmware.vmware_dvswitch_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: false
+        datacenter: "{{ datacenter }}"
+      register: dvs_info
+
+    - debug:
+      var: dvs_info.distributed_virtual_switches
     - name: Create a virtual machine
       community.vmware.vmware_guest:
         folder: "/Amigo/vm/Software-2"

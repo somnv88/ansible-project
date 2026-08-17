@@ -257,3 +257,36 @@
 2026-08-04T04:13:55.568805+00:00 INFO 'ansible_navigator.main' A sample settings file can be created with 'ansible-navigator settings --sample'
 2026-08-04T04:13:55.568810+00:00 INFO 'ansible_navigator.main' Configuration failed, using default log file location. (/root/project_ansible/ansible-navigator.log) Log level set to debug
 2026-08-04T04:13:55.568815+00:00 INFO 'ansible_navigator.main' Review the hints and log file to see what went wrong.
+2026-08-13T14:16:44.002077+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-13T14:16:44.002215+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-13T14:16:44.002270+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: registry.redhat.io/ansible-automation-platform-25/ansible-dev-tools-rhel8:latest: image not known
+
+2026-08-16T12:55:27.115033+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SUBSCRIPTION_ID` not currently set, discarded
+2026-08-16T12:55:27.115306+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_CLIENT_ID` not currently set, discarded
+2026-08-16T12:55:27.115348+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SECRET` not currently set, discarded
+2026-08-16T12:55:27.115378+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_TENANT` not currently set, discarded
+2026-08-16T12:56:25.915393+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SUBSCRIPTION_ID` not currently set, discarded
+2026-08-16T12:56:25.915519+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_CLIENT_ID` not currently set, discarded
+2026-08-16T12:56:25.915553+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SECRET` not currently set, discarded
+2026-08-16T12:56:25.915575+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_TENANT` not currently set, discarded
+2026-08-16T13:31:54.106971+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SUBSCRIPTION_ID` not currently set, discarded
+2026-08-16T13:31:54.107082+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_CLIENT_ID` not currently set, discarded
+2026-08-16T13:31:54.107116+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SECRET` not currently set, discarded
+2026-08-16T13:31:54.107137+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_TENANT` not currently set, discarded
+2026-08-16T13:35:49.060057+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-16T13:35:49.060205+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-16T13:35:49.060254+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: quay-ssc2.local.amigo.com/admin/vmware-ee:latest: image not known
+
+2026-08-16T13:35:49.060294+00:00 ERROR 'ansible_navigator.image_manager.puller._log_message' Pull policy is set to 'never' and execution environment image was not found locally
+2026-08-16T13:36:06.812960+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' Image inspection failed, image assumed to be corrupted or missing
+2026-08-16T13:36:06.813108+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stdout: []
+
+2026-08-16T13:36:06.813146+00:00 WARNING 'ansible_navigator.image_manager.puller._log_message' stderr: Error: quay-ssc2.local.amigo.com/admin/vmware-ee:latest: image not known
+
+2026-08-16T13:36:06.813185+00:00 ERROR 'ansible_navigator.image_manager.puller._log_message' Pull policy is set to 'never' and execution environment image was not found locally
+2026-08-16T13:36:16.441812+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SUBSCRIPTION_ID` not currently set, discarded
+2026-08-16T13:36:16.441939+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_CLIENT_ID` not currently set, discarded
+2026-08-16T13:36:16.441984+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_SECRET` not currently set, discarded
+2026-08-16T13:36:16.442011+00:00 WARNING 'ansible_navigator.runner.base._add_env_vars_to_args' Pass through environment variable `AZURE_TENANT` not currently set, discarded
