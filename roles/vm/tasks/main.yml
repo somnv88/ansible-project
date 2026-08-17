@@ -3,10 +3,10 @@
   vmware.vmware.vm:
     validate_certs: false
 
-    datacenter: "{{ datacenter_name }}"
-    cluster: "{{ cluster_name }}"
-    resource_pool: "{{ resource_pool }}"
-    datastore: "{{ datastore_name }}"
+    datacenter: "{{ datacenter_name | default('Datacenter') }}"
+    cluster: "{{ cluster_name | default('cluster1') }}"
+    resource_pool: "{{ resource_pool | default('Resources') }}"
+    datastore: "{{ datastore_name | default('datastore1') }}"
 
     name: "{{ vm_name | default('test-vmware-module-01') }}"
     guest_id: "{{ guest_id | default('rhel8_64Guest') }}"
@@ -31,6 +31,6 @@
 - name: Bat nguon may ao sau khi tao
   vmware.vmware.vm_powerstate:
     validate_certs: false
-    datacenter: "{{ datacenter_name }}"
+    datacenter: "{{ datacenter_name | default('Datacenter') }}"
     moid: "{{ _new_vm.vm.moid }}"
     state: powered-on
