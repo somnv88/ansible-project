@@ -2,17 +2,6 @@
 - name: Test tao VM su dung vmware.vmware.vm
   hosts: localhost
   gather_facts: false
-  vars:
-    vm_name: "{{ vm_name | default('test-vmware-module-01') }}"
-    guest_id: "{{ guest_id | default('rhel8_64Guest') }}"
-    cpu_cores: "{{ cpu_cores | default(2) }}"
-    cpu_cores_per_socket: "{{ cpu_cores_per_socket | default(1) }}"
-    memory_size_mb: "{{ memory_size_mb | default(2048) }}"
-    disk_size: "{{ disk_size | default('20gb') }}"
-    datacenter_name: "{{ datacenter_name | default('Datacenter') }}"
-    cluster_name: "{{ cluster_name | default('cluster1') }}"
-    resource_pool: "{{ resource_pool | default('Resources') }}"
-    datastore_name: "{{ datastore_name | default('datastore1') }}"
 
   tasks:
     - name: Import VM creation role
