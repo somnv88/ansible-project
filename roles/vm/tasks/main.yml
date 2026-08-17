@@ -7,7 +7,7 @@
     cluster: "{{ cluster_name | default('cluster1') }}"
     resource_pool: "{{ resource_pool | default('Resources') }}"
     datastore: "{{ datastore_name | default('datastore1') }}"
-
+    folder: "{{ folder_name | default('/Amigo/vm/Software-2') }}"
     name: "{{ vm_name | default('test-vmware-module-01') }}"
     guest_id: "{{ guest_id | default('rhel8_64Guest') }}"
 
