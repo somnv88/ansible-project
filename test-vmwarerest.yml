@@ -17,7 +17,7 @@
       failed_when: false
 
     - name: Check resource pool access
-      vmware.vmware_rest.vcenter_resource_pool_info:
+      vmware.vmware_rest.vcenter_resourcepool_info:
         resource_pools:
           - "{{ vm_resource_pool_id }}"
       register: resource_pool_check
