@@ -24,13 +24,12 @@
         size_MiB: 1024
       disks:
       - type: SATA
-        backing:
-          type: VMDK_FILE
-          vmdk_file: '[local] test_vm1/{{ disk_name }}.vmdk'
-      - type: SATA
+        sata:
+          bus: 0
+          unit: 0
         new_vmdk:
-          name: second_disk
-          capacity: 10240
+          name: system_disk
+          capacity: 21474836480
       cdroms:
       - type: SATA
         sata:
