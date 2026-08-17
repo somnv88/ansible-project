@@ -6,11 +6,8 @@
   tasks:
     - name: Get distributed switches
       community.vmware.vmware_dvswitch_info:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
         validate_certs: false
-        datacenter: "{{ datacenter }}"
+      delegate_to: localhost
       register: dvs_info
 
     - name: Get switches
