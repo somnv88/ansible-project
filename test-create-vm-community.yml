@@ -7,6 +7,8 @@
     - name: Create a virtual machine
       community.vmware.vmware_guest:
         folder: "/Amigo/vm/Software-2"
+
+        datacenter: "Amigo"
         name: testvm_som
         state: poweredon
         disk:
