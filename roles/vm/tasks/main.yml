@@ -20,7 +20,10 @@
     scsi_controllers:
       - controller_type: paravirtual
         bus_number: 0
-
+    network_adapters:
+      - adapter_type: "{{ adapter_type | default('vmxnet3') }}"
+        network: "{{ network_name | default('dvportgroup-1201111') }}"
+        connect_at_power_on: true
     disks:
       - size: "{{ disk_size | default('20gb') }}"
         provisioning: thin
