@@ -3,9 +3,9 @@
   hosts: localhost
   gather_facts: false
   vars:
-    vm_cluster_id: "domain-c1001"
+    vm_cluster_id: "domain-c1198154"
     vm_datastore_id: "datastore-1198166"
-    vm_resource_pool_id: "resgroup-1004"
+    vm_resource_pool_id: "resgroup-1201139"
     vm_source_id: "vm-1209383"
 
   tasks:
