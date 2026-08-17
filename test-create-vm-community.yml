@@ -12,6 +12,7 @@
         resource_pool: "Software-2"
         name: testvm_som
         state: poweredon
+        guest_id: rhel8_64Guest
         disk:
         - size_gb: 20
           type: thin
