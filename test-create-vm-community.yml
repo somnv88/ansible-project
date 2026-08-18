@@ -11,7 +11,7 @@
         cluster: "Amigo 2"
         resource_pool: "Software-2"
         name: testvm_som
-        state: poweredon
+        state: present
         guest_id: rhel8_64Guest
         disk:
         - size_gb: 20
@@ -47,3 +47,8 @@
         #wait_for_ip_address: true
       delegate_to: localhost
       register: deploy
+    - name: Power on VM
+      community.vmware.vmware_guest:
+        validate_certs: false
+        name: testvm_som
+        state: poweredon
