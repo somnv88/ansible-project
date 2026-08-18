@@ -30,8 +30,8 @@
               state: present
               type: iso
               iso_path: "[vsanDatastore] b4b80e6a-0a46-ae2f-9e7e-6c92cf75ed90/rhel-9.3-x86_64-dvd.iso"
-        # networks:
-        # - name: '192.168.50.0'
+        networks:
+        - name: '192.168.50.0'
         #wait_for_ip_address: true
       delegate_to: localhost
       register: deploy
