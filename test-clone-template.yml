@@ -1,6 +1,7 @@
 ---
 - name: Test clone VM su dung community.vmware.vmware_guest
   hosts: localhost
+  become: false
   gather_facts: false
 
   tasks:
