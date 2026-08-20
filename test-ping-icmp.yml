@@ -1,7 +1,7 @@
 - name: Kiem tra ICMP ping va tao file neu fail
   hosts: "{{ target_group | default('all') }}"
   gather_facts: false
-
+  become: false
   tasks:
     - name: Kiem tra ket noi bang ping command
       ansible.builtin.command:
