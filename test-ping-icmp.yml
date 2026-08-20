@@ -1,13 +1,23 @@
-- name: Kiem tra host bang builtin ping va tao file neu fail
+- name: Kiem tra ICMP ping va tao file neu fail
   hosts: "{{ target_group | default('all') }}"
   gather_facts: false
 
   tasks:
-    - name: Kiem tra ket noi bang ansible.builtin.ping
-      ansible.builtin.ping:
+    - name: Kiem tra ket noi bang ping command
+      ansible.builtin.command:
+        argv:
+          - ping
+          - -c
+          - "2"
+          - -W
+          - "2"
+          - "{{ hostvars[inventory_hostname].ansible_host | default(inventory_hostname) }}"
+      delegate_to: localhost
+      changed_when: false
+      failed_when: ping_check.rc != 0
       register: ping_check
       ignore_errors: true
 
-    - name: Import copy task neu builtin ping fail
+    - name: Import copy task neu ping command fail
       ansible.builtin.import_tasks: tasks/create-unreachable-note.yml
       when: ping_check is failed
