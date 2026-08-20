@@ -1,0 +1,13 @@
+- name: Kiem tra host bang builtin ping va tao file neu fail
+  hosts: "{{ target_group | default('all') }}"
+  gather_facts: false
+
+  tasks:
+    - name: Kiem tra ket noi bang ansible.builtin.ping
+      ansible.builtin.ping:
+      register: ping_check
+      ignore_errors: true
+
+    - name: Import copy task neu builtin ping fail
+      ansible.builtin.import_tasks: tasks/create-unreachable-note.yml
+      when: ping_check is failed

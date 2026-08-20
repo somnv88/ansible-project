@@ -1,0 +1,5 @@
+- name: Tao file txt tren host khi khong ping duoc
+  ansible.builtin.copy:
+    dest: /tmp/icmp_check.txt
+    content: "k ping duoc\n"
+    mode: "0644"
