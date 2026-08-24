@@ -101,8 +101,22 @@
         group: root
         mode: '0640'
       become: true
+    - name: Ensure firewalld is enabled and running
+      ansible.builtin.systemd:
+        name: firewalld
+        enabled: true
+        state: started
+    - name: Reload firewalld configuration
+      ansible.builtin.command: firewall-cmd --reload
+      changed_when: true
+    - name: Open Kubernetes API service in firewalld
+      ansible.builtin.firewalld:
+        service: haproxy-kubernetes-api
+        permanent: true
+        immediate: true
+        state: enabled
     - name: Enable and start HAProxy service
       ansible.builtin.systemd:
         name: haproxy
         enabled: true
-        state: started
+        state: restarted
