@@ -1,6 +1,6 @@
 ---
 - name: setup dns server
-  host: server
+  hosts: loadbalancer
   tasks:
     - name: install bind and bind-utils
       ansible.builtin.yum:
@@ -9,12 +9,33 @@
       loop:
         - bind
         - bind-utils
+        - firewalld
+    - name: ensure firewalld is enabled and running
+      ansible.builtin.systemd:
+        name: firewalld
+        enabled: true
+        state: started
+    - name: open DNS service in firewalld
+      ansible.builtin.firewalld:
+        service: dns
+        permanent: true
+        immediate: true
+        state: enabled
     - name: configure named.conf
       ansible.builtin.template:
-        src: named.conf.j2
+        src: templates/named.conf.j2
         dest: /etc/named.conf
         owner: root
         group: root
         mode: '0644'
+      vars:
+        named_listen_ip: "{{ ansible_host | default(inventory_hostname) }}"
+        dns_allowed_subnet: "172.16.185.0/24"
       notify:
         - restart named
+  handlers:
+    - name: restart named
+      ansible.builtin.systemd:
+        name: named
+        enabled: true
+        state: restarted

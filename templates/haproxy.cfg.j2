@@ -1,32 +1,22 @@
 global
     log /dev/log local0
     log /dev/log local1 notice
-    chroot /var/lib/haproxy
-    pidfile /var/run/haproxy.pid
-    maxconn 4000
-    user haproxy
-    group haproxy
-    daemon
-    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
-    stats timeout 30s
 
 defaults
-    log global
-    mode http
-    option httplog
-    option dontlognull
+    mode tcp
     timeout connect 5s
-    timeout client 30s
-    timeout server 30s
+    timeout client  50s
+    timeout server  50s
 
-frontend http_front
-    bind {{ haproxy_frontend_bind | default('*:80') }}
-    mode http
-    default_backend {{ haproxy_backend_name | default('rgw') }}
 
-backend {{ haproxy_backend_name | default('rgw') }}
+frontend kubernetes_api
+    bind {{ haproxy_frontend_bind | default('*:6443') }}
+    mode tcp
+    default_backend {{ haproxy_backend_name | default('kubernetes_api_servers') }}
+
+backend {{ haproxy_backend_name | default('kubernetes_api_servers') }}
     balance roundrobin
-    mode http
+    mode tcp
 {% for server in haproxy_backend_servers %}
-    server backend{{ loop.index }} {{ server }} check
+    server api-server{{ loop.index }} {{ server }}:{{ haproxy_api_server_port | default(6443) }} check
 {% endfor %}
