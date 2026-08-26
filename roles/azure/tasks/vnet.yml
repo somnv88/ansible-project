@@ -1,0 +1,20 @@
+- name: Create Azure virtual network
+  azure.azcollection.azure_rm_virtualnetwork:
+    resource_group: "{{ azure_resource_group }}"
+    name: "{{ azure_vnet_name }}"
+    address_prefixes:
+      - "{{ azure_vnet_address_prefix }}"
+
+- name: Create Azure network security group
+  azure.azcollection.azure_rm_securitygroup:
+    resource_group: "{{ azure_resource_group }}"
+    name: "{{ azure_nsg_name }}"
+    rules: "{{ azure_nsg_rules }}"
+
+- name: Create Azure subnet
+  azure.azcollection.azure_rm_subnet:
+    resource_group: "{{ azure_resource_group }}"
+    virtual_network: "{{ azure_vnet_name }}"
+    name: "{{ azure_subnet_name }}"
+    address_prefix: "{{ azure_subnet_address_prefix }}"
+    security_group: "{{ azure_nsg_name }}"

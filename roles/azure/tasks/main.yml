@@ -1,0 +1,11 @@
+---
+- name: Create Azure network resources
+  ansible.builtin.include_tasks: vnet.yml
+
+- name: Create Azure virtual machine
+  ansible.builtin.include_tasks: vm.yml
+  when: azure_vm_enabled | bool
+
+- name: Create Azure virtual machine scale set
+  ansible.builtin.include_tasks: vmss.yml
+  when: azure_vmss_enabled | bool

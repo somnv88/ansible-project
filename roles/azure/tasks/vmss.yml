@@ -1,0 +1,20 @@
+---
+- name: Create Azure virtual machine scale set
+  azure.azcollection.azure_rm_virtualmachinescaleset:
+    resource_group: "{{ azure_resource_group }}"
+    name: "{{ azure_vmss_name }}"
+    capacity: "{{ azure_vmss_capacity }}"
+    vm_size: "{{ azure_vm_size }}"
+    admin_username: "{{ azure_admin_username }}"
+    admin_password: "{{ azure_admin_password | default(omit) }}"
+    ssh_public_keys: "{{ azure_ssh_public_keys | default(omit) }}"
+    upgrade_policy: "{{ azure_vmss_upgrade_policy }}"
+    image:
+      publisher: "{{ azure_image_publisher }}"
+      offer: "{{ azure_image_offer }}"
+      sku: "{{ azure_image_sku }}"
+      version: "{{ azure_image_version }}"
+    virtual_network:
+      name: "{{ azure_vnet_name }}"
+      subnet:
+        name: "{{ azure_subnet_name }}"

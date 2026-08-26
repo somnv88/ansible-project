@@ -1,0 +1,31 @@
+---
+azure_vm_enabled: false
+azure_vmss_enabled: false
+
+azure_vnet_name: som-vnet
+azure_vnet_address_prefix: 10.0.0.0/16
+azure_subnet_name: som-subnet
+azure_subnet_address_prefix: 10.0.1.0/24
+azure_nsg_name: som-nsg
+azure_nsg_rules:
+  - name: Allow-SSH
+    priority: 100
+    direction: Inbound
+    access: Allow
+    protocol: Tcp
+    source_address_prefix: '*'
+    source_port_range: '*'
+    destination_address_prefix: '*'
+    destination_port_range: '22'
+
+azure_vm_name: som-vm
+azure_vmss_name: som-vmss
+azure_vmss_capacity: 2
+azure_vmss_upgrade_policy: Automatic
+azure_vm_size: Standard_B2s
+azure_managed_disk_type: Standard_LRS
+azure_admin_username: azureuser
+azure_image_publisher: RedHat
+azure_image_offer: RHEL
+azure_image_sku: '9_5'
+azure_image_version: latest
