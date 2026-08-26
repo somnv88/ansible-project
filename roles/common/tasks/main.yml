@@ -8,12 +8,10 @@
     path: /etc/fstab
     regexp: '^(\S+\s+\S+\s+swap\s+\S+\s+\S+\s+\S+)'
     replace: '# \1'
-
-# - name: Set SELinux to permissive
-#   ansible.builtin.include_role:
-#     name: redhat.rhel_system_roles.selinux
-#   vars:
-#     selinux_state: permissive
+- name: Set SELinux to permissive
+  ansible.posix.selinux:
+    policy: targeted
+    state: permissive
 
 - name: Stop and disable firewalld
   ansible.builtin.systemd:
@@ -25,7 +23,7 @@
 - name: Add Google DNS to resolv.conf
   vars:
     nameserverentries:
-      - 8.8.8.8
+      - 172.16.185.140
       - 8.8.8.4
   ansible.builtin.template:
     dest: /etc/resolv.conf

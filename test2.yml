@@ -1,6 +1,6 @@
 ---
 - name: prerequisite
-  hosts: haproxy-nodes
+  hosts: loadbalancer
   gather_facts: false
 
   tasks:
@@ -8,58 +8,56 @@
       ansible.builtin.yum:
         name: "*"
         state: latest
-    - name: Ensure firewalld open for http and https if running
+    - name: Ensure firewalld open for Kubernetes API if running
       ansible.builtin.firewalld:
         service: "{{ item }}"
         permanent: true
         state: enabled
       loop:
-        - http
-        - https
+        - haproxy-kubernetes-api
       when: ansible_facts.services['firewalld.service'] is defined and ansible_facts.services['firewalld.service'].state == 'running'
----
-- name: Install keepalived on haproxy nodes
-  hosts: haproxy-nodes
-  gather_facts: true
+# ---
+# - name: Install keepalived on haproxy nodes
+#   hosts: haproxy-nodes
+#   gather_facts: true
 
-  tasks:
-    - name: Install keepalived
-      ansible.builtin.yum:
-        name: keepalived
-        state: present
+#   tasks:
+#     - name: Install keepalived
+#       ansible.builtin.yum:
+#         name: keepalived
+#         state: present
 
-    - name: Configure keepalived from host facts
-      ansible.builtin.template:
-        src: templates/keepalived.conf.j2
-        dest: /etc/keepalived/keepalived.conf
-        owner: root
-        group: root
-        mode: '0644'
-      vars:
-        keepalived_interface: "{{ ansible_default_ipv4.interface | default('eth0') }}"
-        keepalived_state: "{{ 'MASTER' if inventory_hostname == groups['haproxy-nodes'] | first else 'BACKUP' }}"
-        keepalived_priority: "{{ 101 if inventory_hostname == groups['haproxy-nodes'] | first else 100 }}"
-        keepalived_virtual_router_id: "{{ keepalived_vrrp_id | default(51) }}"
-        keepalived_advert_int: "{{ keepalived_advert_int | default(1) }}"
-        keepalived_virtual_ip: "{{ keepalived_vip | default('192.168.0.100') }}"
-        keepalived_check_interval: "{{ keepalived_check_interval | default(2) }}"
-        keepalived_check_weight: "{{ keepalived_check_weight | default(2) }}"
-    - name: Configure keepalived
-      ansible.builtin.template:
-        src: keepalived.conf.j2
-        dest: /etc/keepalived/keepalived.conf
-        owner: root
-        group: root
-        mode: '0644'
-    - name: Enable and start keepalived service
-      ansible.builtin.systemd:
-        name: keepalived
-        enabled: true
-        state: started
+#     - name: Configure keepalived from host facts
+#       ansible.builtin.template:
+#         src: templates/keepalived.conf.j2
+#         dest: /etc/keepalived/keepalived.conf
+#         owner: root
+#         group: root
+#         mode: '0644'
+#       vars:
+#         keepalived_interface: "{{ ansible_default_ipv4.interface | default('eth0') }}"
+#         keepalived_state: "{{ 'MASTER' if inventory_hostname == groups['haproxy-nodes'] | first else 'BACKUP' }}"
+#         keepalived_priority: "{{ 101 if inventory_hostname == groups['haproxy-nodes'] | first else 100 }}"
+#         keepalived_virtual_router_id: "{{ keepalived_vrrp_id | default(51) }}"
+#         keepalived_advert_int: "{{ keepalived_advert_int | default(1) }}"
+#         keepalived_virtual_ip: "{{ keepalived_vip | default('192.168.0.100') }}"
+#         keepalived_check_interval: "{{ keepalived_check_interval | default(2) }}"
+#         keepalived_check_weight: "{{ keepalived_check_weight | default(2) }}"
+#     - name: Configure keepalived
+#       ansible.builtin.template:
+#         src: keepalived.conf.j2
+#         dest: /etc/keepalived/keepalived.conf
+#         owner: root
+#         group: root
+#         mode: '0644'
+#     - name: Enable and start keepalived service
+#       ansible.builtin.systemd:
+#         name: keepalived
+#         enabled: true
+#         state: started
 
----
 - name: Install HAProxy on haproxy nodes
-  hosts: haproxy-nodes
+  hosts: loadbalancer
   gather_facts: true
 
   tasks:
@@ -67,6 +65,11 @@
       ansible.builtin.yum:
         name: haproxy
         state: present
+
+    - name: Set SELinux to permissive
+      ansible.posix.selinux:
+        policy: targeted
+        state: permissive
 
     - name: Configure HAProxy from host facts
       ansible.builtin.template:
@@ -76,29 +79,44 @@
         group: root
         mode: '0644'
       vars:
-        haproxy_frontend_bind: "{{ haproxy_frontend_bind | default('*:80') }}"
-        haproxy_backend_name: "{{ haproxy_backend_name | default('rgw') }}"
-        haproxy_backend_servers: "{{ groups['web-nodes'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list }}"
+        haproxy_frontend_bind: "{{ haproxy_fe_bind | default('*:6443') }}"
+        haproxy_backend_name: "{{ haproxy_be_name | default('kubernetes_api_servers') }}"
+        haproxy_api_server_port: 6443
+        haproxy_backend_servers: "{{ groups['control_plane'] | list }}"
     - name: Create custom firewalld service definition
       ansible.builtin.template:
         src: templates/haproxy-http.xml.j2
-        dest: /etc/firewalld/services/haproxy-http.xml
+        dest: /etc/firewalld/services/haproxy-kubernetes-api.xml
         owner: root
         group: root
         mode: '0640'
     - name: Restore SELinux context for custom firewalld service
       ansible.builtin.command:
-        cmd: restorecon /etc/firewalld/services/haproxy-http.xml
+        cmd: restorecon /etc/firewalld/services/haproxy-kubernetes-api.xml
       become: true
     - name: Set permissions on custom firewalld service
       ansible.builtin.file:
-        path: /etc/firewalld/services/haproxy-http.xml
+        path: /etc/firewalld/services/haproxy-kubernetes-api.xml
         owner: root
         group: root
         mode: '0640'
       become: true
+    - name: Ensure firewalld is enabled and running
+      ansible.builtin.systemd:
+        name: firewalld
+        enabled: true
+        state: started
+    - name: Reload firewalld configuration
+      ansible.builtin.command: firewall-cmd --reload
+      changed_when: true
+    - name: Open Kubernetes API service in firewalld
+      ansible.builtin.firewalld:
+        service: haproxy-kubernetes-api
+        permanent: true
+        immediate: true
+        state: enabled
     - name: Enable and start HAProxy service
       ansible.builtin.systemd:
         name: haproxy
         enabled: true
-        state: started
+        state: restarted

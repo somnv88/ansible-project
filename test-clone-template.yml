@@ -1,0 +1,29 @@
+---
+- name: Test clone VM su dung community.vmware.vmware_guest
+  hosts: localhost
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Clone a virtual machine
+      community.vmware.vmware_guest:
+        folder: "/Amigo/vm/Software-2"
+        datacenter: "Amigo"
+        cluster: "Amigo 2"
+        resource_pool: "Software-2"
+        name: testvm_som_clone
+        state: poweredon
+        validate_certs: false
+        template: 'nampd-sample-to-clone-1'
+        disk:
+        - size_gb: 20
+          type: thin
+          datastore: vsanDatastore
+        # Add another disk from an existing VMDK
+        hardware:
+          memory_mb: 2048
+          num_cpus: 2
+          scsi: paravirtual
+          boot_firmware: "efi"
+      delegate_to: localhost
+      register: deploy

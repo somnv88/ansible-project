@@ -1,0 +1,5 @@
+- name: Tao file txt tren host khi khong ping duoc
+  ansible.builtin.copy:
+    dest: "{{ unreachable_note_dest | default('/tmp/icmp_check.txt') }}"
+    content: "{{ unreachable_note_content | default('k ping duoc\n') }}"
+    mode: "{{ unreachable_note_mode | default('0644') }}"

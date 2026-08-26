@@ -1,0 +1,25 @@
+- name: Demo su khac nhau giua import_tasks va include_tasks
+  hosts: "{{ target_group | default('all') }}"
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Tao suffix runtime de quan sat include chay dong
+      ansible.builtin.set_fact:
+        demo_suffix: "{{ 1000 | random }}"
+
+    - name: import_tasks - nap task tinh tai parse time
+      ansible.builtin.import_tasks: tasks/create-unreachable-note.yml
+      vars:
+        unreachable_note_dest: /tmp/demo-import.txt
+        unreachable_note_content: "tao bang import_tasks\n"
+
+    - name: include_tasks - nap task dong tai runtime va ho tro loop
+      ansible.builtin.include_tasks: tasks/create-unreachable-note.yml
+      loop:
+        - node1
+        - node2
+      loop_control:
+        loop_var: demo_node
+      vars:
+        unreachable_note_dest: "/tmp/demo-include-{{ demo_node }}-{{ demo_suffix }}.txt"
+        unreachable_note_content: "tao bang include_tasks cho {{ demo_node }}, suffix={{ demo_suffix }}\n"

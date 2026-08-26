@@ -1,26 +1,10 @@
 [control_plane]
-172.16.185.128
-
-[workers]
-172.16.185.136
-
-[haproxy-nodes]
-haproxy01 ansible_host=172.16.185.135
-haproxy02 ansible_host=172.16.185.136
-
-[web-nodes]
-web01 ansible_host=10.0.0.71
-web02 ansible_host=10.0.0.80
-
-[haproxy-nodes:vars]
-keepalived_vrrp_id=51
-keepalived_vip=192.168.0.100
-keepalived_advert_int=1
-keepalived_check_interval=2
-keepalived_check_weight=2
-
-[k8s:children]
-control_plane
-workers
+172.16.185.137
+172.16.185.138
+172.16.185.139
+[loadbalancer]
+172.16.185.140
+[worker]
+172.16.185.141
 
 

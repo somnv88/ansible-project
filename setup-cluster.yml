@@ -1,6 +1,6 @@
 ---
 - name: Prepare all Kubernetes nodes
-  hosts: k8s
+  hosts: control_plane:worker
   become: true
   gather_facts: false
   roles:
@@ -11,12 +11,14 @@
 - name: Initialize control plane
   hosts: control_plane
   become: true
+  serial: 1
   roles:
     - kubeadm_control_plane
-    - cni
+    - role: cni
+      when: inventory_hostname == groups['control_plane'][0]
 
 - name: Join worker nodes
-  hosts: workers
+  hosts: worker
   become: true
   roles:
     - kubeadm_worker
