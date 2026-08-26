@@ -7,8 +7,6 @@
     vm_datastore_id: "datastore-1198166"
     vm_resource_pool_id: "resgroup-1201139"
     vm_folder_id: "group-v1159426"
-    # Example: vm_folder_id: "{{ lookup('vmware.vmware_rest.folder_moid', '/my_dc/vm') }}"
-    #vm_source_id: "vm-1209383"
     vm_network_id: "dvportgroup-1201111"
   tasks:
   - name: Create a VM

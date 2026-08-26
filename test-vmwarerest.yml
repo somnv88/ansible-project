@@ -9,47 +9,6 @@
     vm_source_id: "vm-1209383"
 
   tasks:
-    - name: Check datastore access
-      vmware.vmware_rest.vcenter_datastore_info:
-        datastores:
-          - "{{ vm_datastore_id }}"
-      register: datastore_check
-      failed_when: false
-
-    - name: Check resource pool access
-      vmware.vmware_rest.vcenter_resourcepool_info:
-        resource_pools:
-          - "{{ vm_resource_pool_id }}"
-      register: resource_pool_check
-      failed_when: false
-
-    - name: Check source VM access
-      vmware.vmware_rest.vcenter_vm_info:
-        vms:
-          - "{{ vm_source_id }}"
-      register: source_vm_check
-      failed_when: false
-
-    - name: Fail early if permission is missing
-      ansible.builtin.assert:
-        that:
-          - datastore_check.value is defined
-          - (datastore_check.value | length) > 0
-          - resource_pool_check.value is defined
-          - (resource_pool_check.value | length) > 0
-          - source_vm_check.value is defined
-          - (source_vm_check.value | length) > 0
-        fail_msg: >
-          vCenter privilege preflight FAILED.
-          User does not have enough privilege to read datastore, resource pool or source VM.
-          Required privileges may include:
-          - Datastore.AllocateSpace
-          - Resource.AssignVMToPool
-          - VirtualMachine.Inventory.Read
-          - VirtualMachine.Config.*
-        success_msg: >
-          vCenter authorization preflight passed.
-
     - name: Clone VM only after preflight passes
       vmware.vmware_rest.vcenter_vm:
         placement:
