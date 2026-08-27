@@ -2,6 +2,7 @@
   azure.azcollection.azure_rm_virtualnetwork:
     resource_group: "{{ azure_resource_group }}"
     name: "{{ azure_vnet_name }}"
+    location: "{{ azure_location }}"
     address_prefixes:
       - "{{ azure_vnet_address_prefix }}"
 
