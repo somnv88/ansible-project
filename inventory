@@ -9,7 +9,7 @@
 
 terraform ansible_host=192.168.50.106 ansible_user=root
 
-[webserver]
+[webservers]
 webserver1 ansible_host=172.16.185.137
 webserver2 ansible_host=172.16.185.138
 webserver3 ansible_host=172.16.185.139

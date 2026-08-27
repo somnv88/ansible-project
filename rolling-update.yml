@@ -11,7 +11,7 @@
     - name: Remove server from HAProxy
       community.general.haproxy:
         state: disabled
-        host: "{{ ansible_facts['fqdn'] }}"
+        host: "{{ inventory_hostnames }}"
       # delegate_to: haproxy
       # delegate_facts: true
 
@@ -19,7 +19,9 @@
       ansible.builtin.dnf:
         name: httpd
         state: latest
-
+    - name: Sleep for 10 seconds to allow HAProxy to update
+      ansible.builtin.pause:
+        seconds: 10
     - name: Restart httpd
       ansible.builtin.service:
         name: httpd
