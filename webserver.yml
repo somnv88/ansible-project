@@ -1,9 +1,16 @@
 ---
-- name: Configure web server
-  hosts: workers
+- name: Install Apache on webservers
+  hosts: webserver
   become: true
-  tasks:  
-  - name: Test
-    ansible.builtin.ping:
-    
-  
+
+  tasks:
+    - name: Install httpd
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+
+    - name: Enable and start httpd
+      ansible.builtin.systemd:
+        name: httpd
+        enabled: true
+        state: started
