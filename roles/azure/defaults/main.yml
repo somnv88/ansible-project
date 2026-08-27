@@ -29,4 +29,4 @@ azure_admin_username: azureuser
 azure_image_publisher: RedHat
 azure_image_offer: rh-rhel
 azure_image_sku: 'rh-rhel9-arm64'
-azure_image_version: "9.8"
+azure_image_version: "9.8.2026080415"
