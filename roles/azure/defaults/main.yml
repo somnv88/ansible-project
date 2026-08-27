@@ -30,3 +30,6 @@ azure_image_publisher: RedHat
 azure_image_offer: rh-rhel
 azure_image_sku: 'rh-rhel9-arm64'
 azure_image_version: "9.8.2026080415"
+azure_location: japaneast
+azure_security_type: Standard
+azure_zone: 3
