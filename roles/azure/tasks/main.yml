@@ -1,4 +1,9 @@
 ---
+- name: Create Azure resource group
+  azure.azcollection.azure_rm_resourcegroup:
+    name: "{{ azure_resource_group }}"
+    location: "{{ azure_location }}"
+
 - name: Create Azure network resources
   ansible.builtin.include_tasks: vnet.yml
 
