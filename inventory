@@ -3,7 +3,7 @@
 172.16.185.138
 172.16.185.139
 [loadbalancer]
-172.16.185.140
+loadbalancer ansible_host=172.16.185.140
 [worker]
 172.16.185.141
 
