@@ -30,5 +30,5 @@
     - name: Add server back to HAProxy
       community.general.haproxy:
         state: enabled
-        host: "{{ ansible_facts['fqdn'] }}"
+        host: "{{ inventory_hostname }}"
       delegate_to: loadbalancer
