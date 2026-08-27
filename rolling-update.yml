@@ -12,7 +12,7 @@
       community.general.haproxy:
         state: disabled
         host: "{{ inventory_hostnames }}"
-      # delegate_to: haproxy
+      delegate_to: haproxy
       # delegate_facts: true
 
     - name: Update httpd
@@ -31,4 +31,4 @@
       community.general.haproxy:
         state: enabled
         host: "{{ ansible_facts['fqdn'] }}"
-      # delegate_to: haproxy
+      delegate_to: haproxy
