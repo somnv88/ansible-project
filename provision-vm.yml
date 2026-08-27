@@ -16,6 +16,7 @@
       ansible.builtin.command:
         cmd: >
           terraform plan -no-color
+          -out=/tmp/{{ vm_name }}.tfplan
           -var="resource_group_name={{ resource_group_name }}"
           -var="location={{ location }}"
           -var="vm_name={{ vm_name }}"
