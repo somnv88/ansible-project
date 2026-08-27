@@ -1,0 +1,31 @@
+---
+- name: Provision Azure VM
+  hosts: terraform
+  gather_facts: false
+  vars:
+    terraform_dir: /opt/terraform/azure-vm/azure-terra
+
+  tasks:
+
+    - name: Terraform init
+      ansible.builtin.command:
+        cmd: terraform init
+        chdir: "{{ terraform_dir }}"
+
+    - name: Terraform plan
+      ansible.builtin.command:
+        cmd: >
+          terraform plan
+          -var="resource_group_name={{ resource_group_name }}"
+          -var="location={{ location }}"
+          -var="vm_name={{ vm_name }}"
+          -var="vm_size={{ vm_size }}"
+          -var="vnet_name={{ vnet_name }}"
+          -var="subnet_name={{ subnet_name }}"
+          -var="admin_password={{ admin_password }}"
+        chdir: "{{ terraform_dir }}"
+      register: terraform_plan
+
+    - name: Show Terraform plan
+      ansible.builtin.debug:
+        var: terraform_plan.stdout
