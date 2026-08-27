@@ -23,10 +23,10 @@ azure_vm_name: som-vm
 azure_vmss_name: som-vmss
 azure_vmss_capacity: 2
 azure_vmss_upgrade_policy: Automatic
-azure_vm_size: Standard_B2s
+azure_vm_size: Standard_B2pts_v2
 azure_managed_disk_type: Standard_LRS
 azure_admin_username: azureuser
 azure_image_publisher: RedHat
-azure_image_offer: RHEL
-azure_image_sku: '9_5'
-azure_image_version: latest
+azure_image_offer: rh-rhel
+azure_image_sku: 'rh-rhel9-arm64'
+azure_image_version: "9.8"
