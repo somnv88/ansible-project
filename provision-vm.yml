@@ -25,10 +25,10 @@
           -var="admin_password={{ admin_password }}"
         chdir: "{{ terraform_dir }}"
         environment:
-          ARM_SUBSCRIPTION_ID: "{{ AZURE_SUBSCRIPTION_ID }}"
-          ARM_CLIENT_ID: "{{ AZURE_CLIENT_ID }}"
-          ARM_CLIENT_SECRET: "{{ AZURE_SECRET }}"
-          ARM_TENANT_ID: "{{ AZURE_TENANT }}"
+          ARM_SUBSCRIPTION_ID: "{{ lookup('ansible.builtin.env', 'AZURE_SUBSCRIPTION_ID') }}"
+          ARM_CLIENT_ID: "{{ lookup('ansible.builtin.env', 'AZURE_CLIENT_ID') }}"
+          ARM_CLIENT_SECRET: "{{ lookup('ansible.builtin.env', 'AZURE_SECRET') }}"
+          ARM_TENANT_ID: "{{ lookup('ansible.builtin.env', 'AZURE_TENANT') }}"
 
       register: terraform_plan
 
