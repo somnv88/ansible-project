@@ -11,7 +11,7 @@
     - name: Remove server from HAProxy
       community.general.haproxy:
         state: disabled
-        host: "{{ inventory_hostnames }}"
+        host: "{{ inventory_hostname }}"
       delegate_to: haproxy
       # delegate_facts: true
 
