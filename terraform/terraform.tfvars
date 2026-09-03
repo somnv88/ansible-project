@@ -1,8 +1,0 @@
-vm_name = "my-linux-vm"
-vm_size = "Standard_D2als_v7"
-admin_username = "azureadmin"
-admin_password = "YourSecurePassword123!"
-resource_group_name = "my-resource-group"
-location = "East US"
-vnet_name = "my-vnet"
-subnet_name = "my-subnet"
