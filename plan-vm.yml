@@ -1,0 +1,25 @@
+---
+- name: Provision Azure VM
+  hosts: terraform
+  gather_facts: false
+  vars:
+    terraform_dir: /opt/terraform/azure-vm/azure-terra
+
+  tasks:
+    - name: Basic deploy of a service
+      community.general.terraform:
+        project_path: './terraform'
+        state: present
+        variables:
+          resource_group_name: "{{ resource_group_name }}"
+          location: "{{ location }}"
+          vm_name: "{{ vm_name }}"
+          vm_size: "{{ vm_size }}"
+          vnet_name: "{{ vnet_name }}"
+          subnet_name: "{{ subnet_name }}"
+          admin_password: "{{ admin_password }}"
+      environment:
+        ARM_SUBSCRIPTION_ID: "{{ lookup('ansible.builtin.env', 'AZURE_SUBSCRIPTION_ID') }}"
+        ARM_CLIENT_ID: "{{ lookup('ansible.builtin.env', 'AZURE_CLIENT_ID') }}"
+        ARM_CLIENT_SECRET: "{{ lookup('ansible.builtin.env', 'AZURE_SECRET') }}"
+        ARM_TENANT_ID: "{{ lookup('ansible.builtin.env', 'AZURE_TENANT') }}"
