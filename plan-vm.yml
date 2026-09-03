@@ -11,6 +11,7 @@
       community.general.terraform:
         project_path: './terraform'
         state: present
+        force_init: true
         variables:
           resource_group_name: "{{ resource_group_name }}"
           location: "{{ location }}"
