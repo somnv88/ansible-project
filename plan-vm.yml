@@ -2,6 +2,7 @@
 - name: Provision Azure VM
   hosts: localhost
   gather_facts: false
+  become: false
   vars:
     terraform_dir: /opt/terraform/azure-vm/azure-terra
 
