@@ -11,7 +11,7 @@
         datacenter: "Amigo"
         cluster: "Amigo 2"
         resource_pool: "Software-2"
-        name: testvm_som_clone
+        name: testvm_som_clone_2
         state: poweredon
         validate_certs: false
         template: 'nampd-sample-to-clone-1'
