@@ -36,3 +36,8 @@
     - name: Show Terraform plan
       ansible.builtin.debug:
         var: terraform_plan.stdout
+    - name: VM name to apply
+      ansible.builtin.set_stats:
+        data:
+          vm_name: "{{ vm_name }}"
+    
